@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37516.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PokemonProject", "PokemonProject\PokemonProject.vcxproj", "{2ADFF389-0914-4ADB-8382-1C96402D03E4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206} = {FDD47902-DFD8-484D-A4F5-0C3ACB95C206}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Debug|x64.ActiveCfg = Debug|x64
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Debug|x64.Build.0 = Debug|x64
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Debug|x86.ActiveCfg = Debug|Win32
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Debug|x86.Build.0 = Debug|Win32
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Release|x64.ActiveCfg = Release|x64
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Release|x64.Build.0 = Release|x64
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Release|x86.ActiveCfg = Release|Win32
+		{2ADFF389-0914-4ADB-8382-1C96402D03E4}.Release|x86.Build.0 = Release|Win32
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Debug|x64.ActiveCfg = Debug|x64
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Debug|x64.Build.0 = Debug|x64
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Debug|x86.ActiveCfg = Debug|Win32
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Debug|x86.Build.0 = Debug|Win32
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Release|x64.ActiveCfg = Release|x64
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Release|x64.Build.0 = Release|x64
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Release|x86.ActiveCfg = Release|Win32
+		{FDD47902-DFD8-484D-A4F5-0C3ACB95C206}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A123A0D5-2B8C-4E1B-BDE7-4FEC98C35115}
+	EndGlobalSection
+EndGlobal
