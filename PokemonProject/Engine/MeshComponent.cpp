@@ -2,11 +2,11 @@
 #include "GameObject.h"
 
 MeshComponent::MeshComponent(GameObject* owner) :
-	Component(owner), m_color(RED),m_shape(DrawableShape::NONE), m_isUI(false),
+	Component(owner), m_color(RED),m_shape(DrawableShape::NONE),
 	m_isSprite(false)
 {
 	m_id = Component::ID::MESH;
-	m_type = Component::Type::DRAW;
+	m_type |= ComponentType::DRAW;
 }
 MeshComponent::~MeshComponent()
 {}
@@ -70,11 +70,6 @@ Color MeshComponent::GetColor() const
 bool MeshComponent::IsSprite() const
 {
 	return m_isSprite;
-}
-
-bool MeshComponent::IsUI() const
-{
-	return m_isUI;
 }
 
 void MeshComponent::SetColor(Color color)

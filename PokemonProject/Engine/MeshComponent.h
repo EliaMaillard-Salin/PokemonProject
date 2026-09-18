@@ -38,7 +38,6 @@ protected:
 	Color m_color;
 	// Image
 	std::uint8_t m_shape;
-	bool m_isUI;
 	bool m_isSprite;
 
 private:

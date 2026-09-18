@@ -8,6 +8,19 @@
 
 class GameObject;
 
+namespace ComponentType
+{
+	enum Type
+	{
+		TYPE_NONE = 0,
+		DRAW = 1 << 0,
+		DRAW_UI = 1 << 1,
+		UPDATE = 1 << 2,
+		FIXED_UPDATE = 1 << 3,
+	};
+
+	static std::uint8_t componentTypeCount = 4;
+}
 
 class Component 
 {
@@ -18,17 +31,10 @@ public:
 		ID_NONE,
 		MESH,
 		COLLIDER,
-		TRANSFORM,
+		RIGIDBODY,
+		UI_SHAPE,
+		UI_TEXT,
 		//
-	};
-
-	enum Type
-	{
-		TYPE_NONE = 0,
-		DRAW = 1 << 0,
-		DRAW_UI = 1 << 1,
-		UPDATE = 1 << 2,
-		FIXED_UPDATE = 1 << 3,
 	};
 
 	Component(GameObject* owner);
@@ -39,15 +45,14 @@ public:
 	virtual void Draw() {};
 
 
-	Component::Type GetType();
+	std::uint8_t GetType();
 	Component::ID GetID();
 
-	GameObject* m_pGameObject;
 protected:
 
-
+	GameObject* m_pGameObject;
 	Component::ID m_id;
-	Component::Type m_type;
+	std::uint8_t m_type;
 
 private:
 

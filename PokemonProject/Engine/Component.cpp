@@ -4,7 +4,7 @@
 #include <iostream>
 
 Component::Component(GameObject* owner) :
-	m_id(ID_NONE), m_type(TYPE_NONE), m_pGameObject(owner)
+	m_id(ID_NONE), m_type(ComponentType::TYPE_NONE), m_pGameObject(owner)
 {
 }
 
@@ -12,7 +12,7 @@ Component::~Component()
 {
 }
 
-Component::Type Component::GetType()
+std::uint8_t Component::GetType()
 {
 	return m_type;
 }

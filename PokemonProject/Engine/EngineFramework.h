@@ -7,5 +7,6 @@
 #include "MeshComponent.h"
 #include "RigidBody.h"
 #include "Collider.h"
+#include "UIElement.h"
 
 #endif

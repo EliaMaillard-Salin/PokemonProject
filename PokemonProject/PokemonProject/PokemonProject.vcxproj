@@ -131,11 +131,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionPannels.cpp" />
+    <ClCompile Include="Challenger.cpp" />
+    <ClCompile Include="CombatPlayer.cpp" />
+    <ClCompile Include="CombatScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Pokemon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionPannels.h" />
+    <ClInclude Include="Challenger.h" />
+    <ClInclude Include="CombatPlayer.h" />
+    <ClInclude Include="CombatScene.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Pokemon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

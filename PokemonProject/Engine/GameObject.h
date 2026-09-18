@@ -15,15 +15,15 @@ public:
 	virtual ~GameObject() {};
 
 	template<typename T>
-	T& AddComponent(Component::ID componentID, Component::Type componentType);
+	T& AddComponent(Component::ID componentID);
 
-	void RemoveComponent(Component::ID componentID, Component::Type componentType);
+	void RemoveComponent(Component::ID componentID);
 
 	template<typename T>
-	T& GetComponent(Component::ID componentID, Component::Type componentType);
+	T& GetComponent(Component::ID componentID);
 
 	virtual void Update() {};
-	virtual void UpdateComponent(Component::Type componentType);
+	virtual void UpdateComponent(std::uint8_t componentType);
 
 	Vector2 GetPosition() const;
 	Vector2 GetSize() const;
@@ -31,7 +31,7 @@ public:
 	void SetPosition(Vector2 const& pos);
 	void SetSize(Vector2 const& size);
 
-	std::map<Component::Type, std::list<std::shared_ptr<Component>>> m_components;
+	std::map<std::uint8_t,std::list<std::shared_ptr<Component>>> m_components;
 protected:
 
 
@@ -46,28 +46,44 @@ private:
 };
 
 template <typename T>
-T& GameObject::AddComponent(Component::ID componentID, Component::Type componentType)
+T& GameObject::AddComponent(Component::ID componentID)
 {
-	for (std::shared_ptr<Component> pCompIn : m_components[componentType])
-		if (pCompIn->GetID() & componentID)
-			return *std::dynamic_pointer_cast<T>(pCompIn);
-	
-	std::shared_ptr<T> pComp = std::make_shared<T>(this);
+	for (auto copsInList = m_components.begin(); copsInList != m_components.end(); copsInList++)
+	{
+		for (auto it = copsInList->second.begin(); it != copsInList->second.end(); it++)
+		{
+			if (it->get()->GetID() == componentID)
+			{
+				return *std::dynamic_pointer_cast<T>(*it);
+			}
+		}
+	}
 
-	m_components[componentType].push_front(pComp);
-	pComp->m_compIterator = m_components[componentType].begin();
+	std::shared_ptr<T> pComp = std::make_shared<T>(this);
+	for (auto copsInList = m_components.begin(); copsInList != m_components.end(); copsInList++)
+	{
+		if (pComp->GetType() == copsInList->first)
+		{
+			copsInList->second.push_front(pComp);
+		}
+	}
 
 	return *pComp;
 }
 
 
 template <typename T>
-T& GameObject::GetComponent(Component::ID componentID, Component::Type componentType)
+T& GameObject::GetComponent(Component::ID componentID)
 {
-	for (std::shared_ptr<Component> pComp : m_components[componentType])
+	for (auto copsInList : m_components)
 	{
-		if (pComp->GetID() & componentID)
-			return *std::dynamic_pointer_cast<T>(pComp);
+		for (auto it = copsInList.second.begin(); it != copsInList.second.end(); it++)
+		{
+			if (it->get()->GetID() == componentID)
+			{
+				return *std::dynamic_pointer_cast<T>(*it);
+			}
+		}
 	}
 }
 

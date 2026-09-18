@@ -48,6 +48,9 @@
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\ObjectTypes</Filter>
     </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source Files\ObjectTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files\ObjectsTypes</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
+      <Filter>Header Files\ObjectsTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
       <Filter>Header Files\ObjectsTypes</Filter>
     </ClInclude>
   </ItemGroup>

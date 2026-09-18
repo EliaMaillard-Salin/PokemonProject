@@ -8,7 +8,7 @@ Collider::Collider(GameObject* owner) :
 	Component(owner), m_shape(ColliderShape::NONE), 
 	m_isTrigger(false), m_width(0.0f), m_height(0.0f), m_isColliding(false)
 {
-	m_type = Component::Type::FIXED_UPDATE;
+	m_type = ComponentType::FIXED_UPDATE | ComponentType::DRAW;
 	m_id = Component::ID::COLLIDER;
 }
 

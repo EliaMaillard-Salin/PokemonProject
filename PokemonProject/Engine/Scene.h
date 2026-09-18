@@ -25,9 +25,9 @@ public:
 	void StartFrame();
 	void EndFrame();
 
-	void FixedUpdate();
-	void Update();
-	void Draw();
+	virtual void FixedUpdate();
+	virtual void Update();
+	virtual void Draw();
 
 	std::list<std::shared_ptr<GameObject>> m_gameObjectInScene;
 private:
@@ -43,9 +43,7 @@ template<typename T>
 inline std::shared_ptr<T> Scene::AddGameObject()
 {
 	std::shared_ptr<T> pGameObject = std::make_shared<T>();
-	//m_gameObjectToCreate.push_back(pGameObject);
-	m_gameObjectInScene.push_front(pGameObject);
-	pGameObject->m_sceneIterator = m_gameObjectInScene.begin();
+	m_gameObjectToCreate.push_back(pGameObject);
 	return pGameObject;
 }
 

@@ -2,11 +2,14 @@
 
 Player::Player()
 {
-	MeshComponent& mesh = AddComponent<MeshComponent>(Component::ID::MESH, Component::Type::DRAW);
+	MeshComponent& mesh = AddComponent<MeshComponent>(Component::ID::MESH);
 	mesh.SetShape(MeshComponent::DrawableShape::FILLED_ELLIPSE);
 	mesh.SetColor(YELLOW);
 	SetSize({ 15.0f,25.0f });
 	SetPosition({ 50.0f,50.0f });
+
+	RigidBody& rigid = AddComponent<RigidBody>(Component::ID::RIGIDBODY);
+	rigid.SetSpeed(2.0f);
 }
 
 Player::~Player()
@@ -19,22 +22,23 @@ void Player::Update()
 
 void Player::HandleMovement()
 {
-	//m_speed = 2.0f;
-	//if (IsKeyDown(KEY_Q))
-	//	m_direction.x = -1.0f;
-	//if (IsKeyDown(KEY_D))
-	//	m_direction.x = 1.0f;
-	//if (IsKeyDown(KEY_Z))
-	//	m_direction.y = -1.0f;
-	//if (IsKeyDown(KEY_S))
-	//	m_direction.y = 1.0f;
+	RigidBody& rigid = GetComponent<RigidBody>(Component::ID::RIGIDBODY);
 
-	//if (m_direction.x && m_direction.y)
-	//{
-	//	m_direction.x /= 2.0f;
-	//	m_direction.y /= 2.0f;
-	//}
+	Vector2 dir = { 0.0f,0.0f };
+	if (IsKeyDown(KEY_A))
+		dir.x = -1.0f;
+	if (IsKeyDown(KEY_D))
+		dir.x = 1.0f;
+	if (IsKeyDown(KEY_W))
+		dir.y = -1.0f;
+	if (IsKeyDown(KEY_S))
+		dir.y = 1.0f;
 
-	//if (!(m_direction.x || m_direction.y))
-	//	m_speed = 0.0f;
+	if (dir.x && dir.y)
+	{
+		dir.x /= 2.0f;
+		dir.y /= 2.0f;
+	}
+
+	rigid.SetDirection(dir);
 }

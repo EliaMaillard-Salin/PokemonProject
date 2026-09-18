@@ -3,39 +3,50 @@
 #include "MeshComponent.h"
 #include "Collider.h"
 
-GameObject::GameObject() : m_sceneIterator(), m_position({0.0f,0.0f}), m_size({0.0f,0.0f})
+GameObject::GameObject() : 
+	m_sceneIterator(), m_position({0.0f,0.0f}), m_size({0.0f,0.0f}),
+	m_components({})
 {
+	std::uint8_t offset = 1 << 0;
+	for (std::uint8_t c = 0; c < ComponentType::componentTypeCount; c++)
+	{
+		m_components.insert(std::pair<std::uint8_t, std::list<std::shared_ptr<Component>>>(offset, {}));
+		offset <<= 1;
+	}
 }
 
 
-void GameObject::RemoveComponent(Component::ID componentID, Component::Type componentType)
+void GameObject::RemoveComponent(Component::ID componentID)
 {
-	for(std::shared_ptr<Component> pComp : m_components[componentType])
+	for (auto copsInList : m_components)
 	{
-		if (pComp->GetID() & componentID)
+		for(auto it = copsInList.second.begin(); it != copsInList.second.end(); it++)
 		{
-			m_components[componentType].erase(pComp->m_compIterator);
+			if (it->get()->GetID() & componentID)
+			{
+				copsInList.second.erase(it);
+			}
 		}
 	}
 }
 
 
-void GameObject::UpdateComponent(Component::Type componentType)
+void GameObject::UpdateComponent(std::uint8_t componentType)
 {
 	for (std::shared_ptr<Component> comp : m_components[componentType])
 	{
 		switch (componentType)
 		{
-		case Component::DRAW:
+		case ComponentType::DRAW:
 			comp->Draw();
 			break;
-		case Component::DRAW_UI:
+		case ComponentType::DRAW_UI:
 			comp->Draw();
 			break;
-		case Component::UPDATE:
+		case ComponentType::UPDATE:
 			comp->Update();
 			break;
-		case Component::FIXED_UPDATE:
+		case ComponentType::FIXED_UPDATE:
 			comp->FixedUpdate();
 			break;
 		default:

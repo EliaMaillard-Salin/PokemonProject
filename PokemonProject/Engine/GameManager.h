@@ -12,10 +12,10 @@
 class GameManager
 {
 public:
-	GameManager();
+	GameManager(std::uint32_t width, std::uint32_t height, std::string title);
 	~GameManager();
 
-	void LaunchGame(std::uint32_t width, std::uint32_t height, std::string title);
+	void LaunchGame();
 	Scene& CreateNewScene(bool asActive = false);
 	void ChangeActiveScene(std::uint8_t sceneID);
 

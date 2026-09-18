@@ -2,20 +2,20 @@
 
 #include <raylib.h>
 
-GameManager::GameManager() :
+GameManager::GameManager(std::uint32_t width, std::uint32_t height, std::string title) :
     m_pGameWindow(std::make_unique<GameWindow>()), m_pPhysicsManager(std::make_unique<PhysicsManager>()),
     m_pActiveScene(nullptr), m_loadedScenes({})
 {
+    InitWindow(width, height, title.c_str());
+    SetTargetFPS(60);
 }
 
 
 GameManager::~GameManager()
 {}
 
-void GameManager::LaunchGame(std::uint32_t width, std::uint32_t height, std::string title)
+void GameManager::LaunchGame()
 {
-    InitWindow(width, height, title.c_str());
-    SetTargetFPS(60);
     GameLoop();
 }
 
@@ -46,7 +46,7 @@ void GameManager::GameLoop()
 
     while (!WindowShouldClose())
     {
-       // m_pActiveScene->StartFrame();
+        m_pActiveScene->StartFrame();
 
         m_pActiveScene->Update();
 
@@ -59,8 +59,7 @@ void GameManager::GameLoop()
 
         EndDrawing();
 
-
-      //  m_pActiveScene->EndFrame();
+        m_pActiveScene->EndFrame();
     }
 
     CloseGame();

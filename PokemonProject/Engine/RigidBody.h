@@ -9,12 +9,20 @@ public:
 	RigidBody(GameObject* owner);
 	virtual ~RigidBody();
 
+	void FixedUpdate() override;
+
 	float GetSpeed();
-	Vector2 GetDirection();
+
+	void SetSpeed(float speed);
+	void SetDirection(Vector2 dir);
+
+	void Move();
+	void Stop();
 
 protected:
 	float m_speed;
 	Vector2 m_direction;
+	bool m_isMoving;
 
 	std::list<std::shared_ptr<RigidBody>>::iterator m_moveIterator;
 };
