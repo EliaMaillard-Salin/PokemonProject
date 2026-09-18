@@ -17,7 +17,10 @@ Player::~Player()
 
 void Player::Update()
 {
-	HandleMovement();
+	GameObject::Update();
+
+	if (!m_isInCombat)
+		HandleMovement();
 }
 
 void Player::HandleMovement()

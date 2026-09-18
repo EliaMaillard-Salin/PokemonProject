@@ -16,7 +16,10 @@ public:
 	~GameManager();
 
 	void LaunchGame();
-	Scene& CreateNewScene(bool asActive = false);
+
+	template <typename T>
+	T& CreateNewScene(bool asActive = false);
+
 	void ChangeActiveScene(std::uint8_t sceneID);
 
 	void CloseGame();
@@ -32,5 +35,17 @@ private:
 	std::vector<std::shared_ptr<Scene>> m_loadedScenes;
 
 };
+
+template <typename T>
+T& GameManager::CreateNewScene(bool asActive)
+{
+	std::shared_ptr<T> pScene = std::make_shared<T>();
+	if (asActive || m_loadedScenes.empty())
+	{
+		m_pActiveScene = pScene;
+	}
+	m_loadedScenes.push_back(pScene);
+	return *pScene;
+}
 
 #endif // GAMEMANAGER_H

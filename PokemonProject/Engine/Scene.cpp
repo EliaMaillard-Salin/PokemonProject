@@ -21,6 +21,8 @@ void Scene::Update()
 {
 	for (std::shared_ptr<GameObject> pGameObject : m_gameObjectInScene)
 	{
+		if (!pGameObject->GetActive())
+			continue;
 		pGameObject->Update();
 		pGameObject->UpdateComponent(ComponentType::UPDATE);
 	}
@@ -30,6 +32,8 @@ void Scene::FixedUpdate()
 {
 	for (std::shared_ptr<GameObject> pGameObject : m_gameObjectInScene)
 	{
+		if (!pGameObject->GetActive())
+			continue;
 		pGameObject->UpdateComponent(ComponentType::FIXED_UPDATE);
 	}
 }
@@ -38,10 +42,14 @@ void Scene::Draw()
 {
 	for (std::shared_ptr<GameObject> pGameObject : m_gameObjectInScene)
 	{
+		if (!pGameObject->GetActive())
+			continue;
 		pGameObject->UpdateComponent(ComponentType::DRAW);
 	}
 	for (std::shared_ptr<GameObject> pGameObject : m_gameObjectInScene)
 	{
+		if (!pGameObject->GetActive())
+			continue;
 		pGameObject->UpdateComponent(ComponentType::DRAW_UI);
 	}
 

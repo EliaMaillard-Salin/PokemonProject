@@ -7,6 +7,8 @@
 
 #include <map>
 
+class Scene;
+
 class GameObject
 {
 public:
@@ -31,12 +33,16 @@ public:
 	void SetPosition(Vector2 const& pos);
 	void SetSize(Vector2 const& size);
 
-	std::map<std::uint8_t,std::list<std::shared_ptr<Component>>> m_components;
+	void SetActive(bool isActive);
+	bool GetActive();
+
 protected:
 
-
+	Scene* m_pScene;
 	Vector2 m_position;
 	Vector2 m_size;
+	bool m_isActive;
+	std::map<std::uint8_t,std::list<std::shared_ptr<Component>>> m_components;
 
 private:
 

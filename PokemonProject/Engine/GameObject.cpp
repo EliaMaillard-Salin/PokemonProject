@@ -72,3 +72,13 @@ void GameObject::SetSize(Vector2 const& size)
 {
 	m_size = size;
 }
+
+void GameObject::SetActive(bool isActive)
+{
+	m_isActive = isActive;
+}
+
+bool GameObject::GetActive()
+{
+	return m_isActive;
+}

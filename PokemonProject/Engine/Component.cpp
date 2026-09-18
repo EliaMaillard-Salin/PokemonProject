@@ -23,3 +23,13 @@ Component::ID Component::GetID()
 	return m_id;
 }
 
+void Component::SetActive(bool isActive)
+{
+	m_isActive = isActive;
+}
+
+bool Component::GetActive()
+{
+	return m_isActive;
+}
+

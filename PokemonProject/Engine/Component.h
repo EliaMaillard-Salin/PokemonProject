@@ -48,12 +48,15 @@ public:
 	std::uint8_t GetType();
 	Component::ID GetID();
 
+	void SetActive(bool isActive);
+	bool GetActive();
+
 protected:
 
 	GameObject* m_pGameObject;
 	Component::ID m_id;
 	std::uint8_t m_type;
-
+	bool m_isActive;
 private:
 
 	std::list<std::shared_ptr<Component>>::iterator m_compIterator;

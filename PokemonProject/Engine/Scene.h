@@ -21,6 +21,8 @@ public:
 
 	void RemoveGameObject(GameObject & gameObject);
 
+	virtual void OpenScene() {}
+
 	// Loop Functions
 	void StartFrame();
 	void EndFrame();
@@ -44,6 +46,7 @@ inline std::shared_ptr<T> Scene::AddGameObject()
 {
 	std::shared_ptr<T> pGameObject = std::make_shared<T>();
 	m_gameObjectToCreate.push_back(pGameObject);
+	pGameObject->m_pScene = this;
 	return pGameObject;
 }
 

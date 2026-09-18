@@ -31,7 +31,10 @@ public:
 	void SetText(std::string text);
 	void SetTextSize(int size);
 
+	void SetPosition(Vector2 pos);
+
 private:
+	Vector2 m_position;
 	std::string m_text;
 	int m_textSize;
 	static Font s_font;
@@ -55,10 +58,12 @@ public:
 	UIShape(GameObject* owner);
 	virtual ~UIShape();
 
+	void SetShape(UIShapeType shape);
+
 	void Draw() override;
 
 private:
-
+	Vector2 m_size;
 	std::uint8_t m_shape;
 
 };

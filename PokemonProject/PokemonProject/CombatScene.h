@@ -4,12 +4,16 @@
 #include "EngineFramework.h"
 
 #include <array>
+#include "Player.h"
+#include "ActionPannels.h"
 
 class CombatScene : public Scene
 {
 public:
 
 	CombatScene();
+
+	void OpenScene() override;
 
 	void Update() override;
 
@@ -19,9 +23,11 @@ public:
 	void ConfirmAction();
 
 private:
-	std::array<std::shared_ptr<GameObject>, 4> m_actionPannels;
+	int m_activePannel;
+	int m_activeAction;
+	std::array<std::shared_ptr<ActionPanel>, 4> m_actionPannels;
 	bool m_isPlayerActive;
-	// Player
+	std::shared_ptr<Player> m_pPlayer;
 	// Challenger
 };
 

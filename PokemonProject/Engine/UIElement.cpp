@@ -26,7 +26,7 @@ UIText::UIText(GameObject* owner) :
 	if (!s_isFontLoaded)
 	{
 		s_isFontLoaded = true;
-		s_font = LoadFont("../Asset/Pokemon_Solid.ttf");
+	/*	s_font = LoadFont("../Asset/Pokemon_Solid.ttf");*/
 	}
 }
 
@@ -36,7 +36,7 @@ UIText::~UIText()
 
 void UIText::Draw()
 {
-	DrawTextEx(s_font,m_text.c_str(), m_pGameObject->GetPosition(), m_textSize, 10, m_color);
+	DrawTextEx(s_font,m_text.c_str(), m_position, m_textSize, 10, m_color);
 }
 
 void UIText::SetText(std::string text)
@@ -49,6 +49,11 @@ void UIText::SetTextSize(int size)
 	m_textSize = size;
 }
 
+void UIText::SetPosition(Vector2 pos)
+{
+	m_position = pos;
+}
+
 UIShape::UIShape(GameObject* owner) : 
 	UIElement(owner), m_shape(CIRCLE)
 {
@@ -56,6 +61,12 @@ UIShape::UIShape(GameObject* owner) :
 
 UIShape::~UIShape()
 {
+}
+
+
+void UIShape::SetShape(UIShapeType shape)
+{
+	m_shape = shape;
 }
 
 void UIShape::Draw()

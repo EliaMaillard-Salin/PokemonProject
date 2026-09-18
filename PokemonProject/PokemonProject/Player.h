@@ -9,9 +9,13 @@ public:
 
 	void Update() override;
 
+	void EncounterEnemy();
+
 private:
 	void HandleMovement();
 
-
+private:
+	bool m_isInCombat;
+	// Enemy
 };
 

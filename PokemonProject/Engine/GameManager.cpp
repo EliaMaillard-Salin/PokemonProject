@@ -19,16 +19,6 @@ void GameManager::LaunchGame()
     GameLoop();
 }
 
-Scene& GameManager::CreateNewScene(bool asActive)
-{
-    std::shared_ptr<Scene> pScene = std::make_shared<Scene>();
-    if (asActive || m_loadedScenes.empty())
-    {
-        m_pActiveScene = pScene;
-    }
-    m_loadedScenes.push_back(pScene);
-    return *pScene;
-}
 
 void GameManager::ChangeActiveScene(std::uint8_t sceneID)
 {
