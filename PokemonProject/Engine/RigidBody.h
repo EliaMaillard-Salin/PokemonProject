@@ -6,7 +6,7 @@
 class RigidBody : public Component
 {
 public:
-	RigidBody();
+	RigidBody(GameObject* owner);
 	virtual ~RigidBody();
 
 	float GetSpeed();

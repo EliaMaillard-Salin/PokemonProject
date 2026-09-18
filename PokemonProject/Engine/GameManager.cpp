@@ -5,7 +5,8 @@
 GameManager::GameManager() :
     m_pGameWindow(std::make_unique<GameWindow>()), m_pPhysicsManager(std::make_unique<PhysicsManager>()),
     m_pActiveScene(nullptr), m_loadedScenes({})
-{}
+{
+}
 
 
 GameManager::~GameManager()
@@ -13,33 +14,30 @@ GameManager::~GameManager()
 
 void GameManager::LaunchGame(std::uint32_t width, std::uint32_t height, std::string title)
 {
-    m_pGameWindow->InitGameWindow(width, height, title);
+    InitWindow(width, height, title.c_str());
+    SetTargetFPS(60);
     GameLoop();
 }
 
-void GameManager::AddScene(Scene const& scene, bool asActive)
+Scene& GameManager::CreateNewScene(bool asActive)
 {
-    std::shared_ptr<Scene> sptrScene = std::make_shared<Scene>(scene);
+    std::shared_ptr<Scene> pScene = std::make_shared<Scene>();
     if (asActive || m_loadedScenes.empty())
     {
-        m_pActiveScene = sptrScene;
-        m_pGameWindow->SetActiveScene(m_pActiveScene);
-        m_pPhysicsManager->SetActiveScene(m_pActiveScene);
+        m_pActiveScene = pScene;
     }
-
-    m_loadedScenes.push_back(sptrScene);
+    m_loadedScenes.push_back(pScene);
+    return *pScene;
 }
 
 void GameManager::ChangeActiveScene(std::uint8_t sceneID)
 {
     m_pActiveScene = m_loadedScenes[sceneID];
-    m_pGameWindow->SetActiveScene(m_pActiveScene);
-    m_pPhysicsManager->SetActiveScene(m_pActiveScene);
 }
 
 void GameManager::CloseGame()
 {
-    m_pGameWindow->CloseGameWindow();
+    CloseWindow();
 }
 
 
@@ -48,7 +46,7 @@ void GameManager::GameLoop()
 
     while (!WindowShouldClose())
     {
-        m_pActiveScene->StartFrame();
+       // m_pActiveScene->StartFrame();
 
         m_pActiveScene->Update();
 
@@ -62,7 +60,7 @@ void GameManager::GameLoop()
         EndDrawing();
 
 
-        m_pActiveScene->EndFrame();
+      //  m_pActiveScene->EndFrame();
     }
 
     CloseGame();

@@ -3,7 +3,9 @@
 #include "GameObject.h"
 
 
-RigidBody::RigidBody() : m_direction({ 0.0f,0.0f }), m_speed(0.0f)
+RigidBody::RigidBody(GameObject* owner) :
+	Component(owner),
+	m_direction({ 0.0f,0.0f }), m_speed(0.0f)
 {}
 
 RigidBody::~RigidBody()

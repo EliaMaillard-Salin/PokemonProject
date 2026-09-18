@@ -3,78 +3,61 @@
 #include "MeshComponent.h"
 #include "Collider.h"
 
-GameObject::GameObject() : m_sceneIterator()
-{}
-
-void GameObject::AddComponent(Component & component)
+GameObject::GameObject() : m_sceneIterator(), m_position({0.0f,0.0f}), m_size({0.0f,0.0f})
 {
-	for (std::shared_ptr<Component> pCompIn : m_components)
-		if (pCompIn->GetID() & component.GetID())
-			return;
-	std::shared_ptr<Component> pComp = std::make_shared<Component>(component);
-	m_components.push_front(pComp);
-	pComp->SetComponentIterator(m_components.begin());
-
-	if (component.GetType() & Component::Type::DRAWABLE)
-	{
-		std::shared_ptr<MeshComponent> pMesh = std::dynamic_pointer_cast<MeshComponent>(pComp);
-		m_drawableComponents.push_front(pMesh);
-		pMesh->SetDrawingIterator(m_drawableComponents.begin());
-	}
-	if (component.GetType() & Component::Type::COLLIDER)
-	{
-		std::shared_ptr<Collider> pMesh = std::dynamic_pointer_cast<Collider>(pComp);
-		m_collidableObjects.push_front(pMesh);
-		//pMesh->SetColliderIterator(m_drawableComponents.begin());
-	}
-	if (component.GetType() & Component::Type::UI)
-	{
-		//std::shared_ptr<Collider> pMesh = std::dynamic_pointer_cast<Collider>(pComp);
-		//m_collidableObjects.push_front(pMesh);
-		//pMesh->SetColliderIterator(m_drawableComponents.begin());
-	}
-
 }
 
-void GameObject::RemoveComponent(Component::ID componentID)
+
+void GameObject::RemoveComponent(Component::ID componentID, Component::Type componentType)
 {
-	for(std::shared_ptr<Component> pComp : m_components)
+	for(std::shared_ptr<Component> pComp : m_components[componentType])
 	{
 		if (pComp->GetID() & componentID)
 		{
-			m_components.erase(pComp->GetComponentIterator());
-
-			if (pComp->GetType() & Component::Type::DRAWABLE)
-			{
-				m_drawableComponents.erase(std::dynamic_pointer_cast<MeshComponent>(pComp)->GetDrawingIterator());
-			}
-			if (pComp->GetType() & Component::Type::COLLIDER)
-			{
-				//m_drawableComponents.erase(std::dynamic_pointer_cast<MeshComponent>(pComp)->GetDrawingIterator());
-			}
-			if (pComp->GetType() & Component::Type::UI)
-			{
-				//m_drawableComponents.erase(std::dynamic_pointer_cast<MeshComponent>(pComp)->GetDrawingIterator());
-			}
+			m_components[componentType].erase(pComp->m_compIterator);
 		}
 	}
 }
 
-Component& GameObject::GetComponent(Component::ID componentID)
+
+void GameObject::UpdateComponent(Component::Type componentType)
 {
-	for (std::shared_ptr<Component> pComp : m_components)
+	for (std::shared_ptr<Component> comp : m_components[componentType])
 	{
-		if (pComp->GetType() & componentID)
-			return *pComp;
+		switch (componentType)
+		{
+		case Component::DRAW:
+			comp->Draw();
+			break;
+		case Component::DRAW_UI:
+			comp->Draw();
+			break;
+		case Component::UPDATE:
+			comp->Update();
+			break;
+		case Component::FIXED_UPDATE:
+			comp->FixedUpdate();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
-std::list<std::shared_ptr<GameObject>>::iterator GameObject::GetSceneIterator()
+Vector2 GameObject::GetPosition() const
 {
-	return m_sceneIterator;
+	return m_position;
+}
+Vector2 GameObject::GetSize() const
+{
+	return m_size;
 }
 
-void GameObject::SetSceneIterator(std::list<std::shared_ptr<GameObject>>::iterator const& it)
+void GameObject::SetPosition(Vector2 const& pos)
 {
-	m_sceneIterator = it;
+	m_position = pos;
+}
+void GameObject::SetSize(Vector2 const& size)
+{
+	m_size = size;
 }

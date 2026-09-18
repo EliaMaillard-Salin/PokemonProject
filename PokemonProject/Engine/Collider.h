@@ -13,7 +13,7 @@ public:
 		CIRCLE = 1 << 1,
 	};
 
-	Collider();
+	Collider(GameObject* owner);
 	virtual ~Collider();
 
 	virtual void OnCollisionEnter() {}

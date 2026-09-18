@@ -19,7 +19,7 @@ public:
 		LINE = 1 << 6,
 	};
 	
-	MeshComponent();
+	MeshComponent(GameObject* owner);
 	virtual ~MeshComponent();
 
 	std::uint8_t GetShape() const;
@@ -30,10 +30,7 @@ public:
 	void SetColor(Color color);
 	void SetShape(DrawableShape shape);
 
-	void Draw();
-
-	void SetDrawingIterator(std::list<std::shared_ptr<MeshComponent>>::iterator const& it);
-	std::list<std::shared_ptr<MeshComponent>>::iterator& GetDrawingIterator();
+	void Draw() override;
 
 	// str?  GetImage();
 
@@ -48,8 +45,6 @@ private:
 	void DrawShape();
 	void DrawSprite();
 
-private:
-	std::list<std::shared_ptr<MeshComponent>>::iterator m_meshIterator;
 };
 
 #endif // !DRAWABLEOBJECT_H

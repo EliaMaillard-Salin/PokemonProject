@@ -6,6 +6,8 @@
 #include <raylib.h>
 #include <memory>
 
+class GameObject;
+
 
 class Component 
 {
@@ -13,49 +15,45 @@ public:
 
 	enum ID
 	{
-		NONE = 0,
-		MESH = 1 << 0,
-		COLLIDER = 1 << 1,
-		TRANSFORM = 1 << 2,
+		ID_NONE,
+		MESH,
+		COLLIDER,
+		TRANSFORM,
+		//
 	};
 
 	enum Type
 	{
-		NONE = 0,
-		DRAWABLE = 1 << 0,
-		UI = 1 << 1,
-		COLLIDER = 1 << 2,
+		TYPE_NONE = 0,
+		DRAW = 1 << 0,
+		DRAW_UI = 1 << 1,
+		UPDATE = 1 << 2,
+		FIXED_UPDATE = 1 << 3,
 	};
 
-	Component();
+	Component(GameObject* owner);
 	virtual ~Component();
 
-	virtual void Update() = 0;
+	virtual void Update() {};
 	virtual void FixedUpdate() {};
 	virtual void Draw() {};
 
 
-	void SetComponentIterator(std::list<std::shared_ptr<Component>>::iterator const& it);
-	std::list<std::shared_ptr<Component>>::iterator GetComponentIterator();
+	Component::Type GetType();
+	Component::ID GetID();
 
-	std::uint8_t GetType();
-	std::uint8_t GetID();
-
-
-
-	Vector2 GetPosition() const;
-	Vector2 GetSize() const;
-
-	void SetPosition(Vector2 const& pos);
-	void SetSize(Vector2 const& size);
-
+	GameObject* m_pGameObject;
 protected:
-	Vector2 m_position;
-	Vector2 m_size;
 
-	std::uint8_t m_id;
-	std::uint8_t m_type;
+
+	Component::ID m_id;
+	Component::Type m_type;
+
+private:
+
 	std::list<std::shared_ptr<Component>>::iterator m_compIterator;
+
+	friend class GameObject;
 };
 
 #endif // !COMPONENT_H

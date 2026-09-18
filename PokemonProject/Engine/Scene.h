@@ -16,26 +16,37 @@ public:
 	Scene();
 	virtual ~Scene();
 
-	void AddGameObject(GameObject const& gameObject);
-	void RemoveGameObject(GameObject const& gameObject);
+	template <typename T>
+	std::shared_ptr<T> AddGameObject();
+
+	void RemoveGameObject(GameObject & gameObject);
 
 	// Loop Functions
 	void StartFrame();
 	void EndFrame();
 
+	void FixedUpdate();
 	void Update();
+	void Draw();
 
-	std::list<std::shared_ptr<MeshComponent>> const& GetDrawableObjects();
-	std::list<std::shared_ptr<RigidBody>> const& GetMovableObjects();
-	std::list<std::shared_ptr<Collider>> const& GetCollidableObjects();
-
-private:
-
-private:
 	std::list<std::shared_ptr<GameObject>> m_gameObjectInScene;
+private:
+
+private:
 
 	std::list<std::shared_ptr<GameObject>> m_gameObjectToDestroy;
 	std::list<std::shared_ptr<GameObject>> m_gameObjectToCreate;
 };
+
+
+template<typename T>
+inline std::shared_ptr<T> Scene::AddGameObject()
+{
+	std::shared_ptr<T> pGameObject = std::make_shared<T>();
+	//m_gameObjectToCreate.push_back(pGameObject);
+	m_gameObjectInScene.push_front(pGameObject);
+	pGameObject->m_sceneIterator = m_gameObjectInScene.begin();
+	return pGameObject;
+}
 
 #endif // !SCENE_H

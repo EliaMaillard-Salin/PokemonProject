@@ -5,9 +5,7 @@
 
 #include "Component.h"
 
-#include <memory>
-#include <cstdint>
-#include <list>
+#include <map>
 
 class GameObject
 {
@@ -16,31 +14,61 @@ public:
 	GameObject();
 	virtual ~GameObject() {};
 
-	void AddComponent(Component& component);
+	template<typename T>
+	T& AddComponent(Component::ID componentID, Component::Type componentType);
 
-	void RemoveComponent(Component::ID componentType);
+	void RemoveComponent(Component::ID componentID, Component::Type componentType);
 
-	Component& GetComponent(Component::ID componentType);
+	template<typename T>
+	T& GetComponent(Component::ID componentID, Component::Type componentType);
 
-	virtual void Update();
-	virtual void FixedUpdate();
-	virtual void Draw();
+	virtual void Update() {};
+	virtual void UpdateComponent(Component::Type componentType);
 
-	virtual void DrawUI() {};
+	Vector2 GetPosition() const;
+	Vector2 GetSize() const;
 
-	std::list<std::shared_ptr<GameObject>>::iterator GetSceneIterator();
-	void SetSceneIterator(std::list<std::shared_ptr<GameObject>>::iterator const& it);
+	void SetPosition(Vector2 const& pos);
+	void SetSize(Vector2 const& size);
 
+	std::map<Component::Type, std::list<std::shared_ptr<Component>>> m_components;
 protected:
-	std::list<std::shared_ptr<Component>> m_components;
 
-	std::list<std::shared_ptr<Collider>> m_collidableObjects;
-	std::list<std::shared_ptr<MeshComponent>> m_drawableComponents;
-	//std::list<std::shared_ptr<UIElement>> m_uiComponents;
+
+	Vector2 m_position;
+	Vector2 m_size;
 
 private:
+
 	std::list<std::shared_ptr<GameObject>>::iterator m_sceneIterator;
 
+	friend class Scene;
 };
+
+template <typename T>
+T& GameObject::AddComponent(Component::ID componentID, Component::Type componentType)
+{
+	for (std::shared_ptr<Component> pCompIn : m_components[componentType])
+		if (pCompIn->GetID() & componentID)
+			return *std::dynamic_pointer_cast<T>(pCompIn);
+	
+	std::shared_ptr<T> pComp = std::make_shared<T>(this);
+
+	m_components[componentType].push_front(pComp);
+	pComp->m_compIterator = m_components[componentType].begin();
+
+	return *pComp;
+}
+
+
+template <typename T>
+T& GameObject::GetComponent(Component::ID componentID, Component::Type componentType)
+{
+	for (std::shared_ptr<Component> pComp : m_components[componentType])
+	{
+		if (pComp->GetID() & componentID)
+			return *std::dynamic_pointer_cast<T>(pComp);
+	}
+}
 
 #endif //

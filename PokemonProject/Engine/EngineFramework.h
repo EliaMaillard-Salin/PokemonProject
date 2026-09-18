@@ -4,8 +4,8 @@
 #include "GameManager.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "Drawable.h"
-#include "Movable.h"
-#include "Collidable.h"
+#include "MeshComponent.h"
+#include "RigidBody.h"
+#include "Collider.h"
 
 #endif
